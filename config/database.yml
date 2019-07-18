@@ -5,12 +5,15 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  #adapter: sqlite3
+  #pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  #timeout: 5000
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
-  <<: *default
+  adapter: sqlite3
   database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -21,5 +24,9 @@ test:
   database: db/test.sqlite3
 
 production:
+  #<<: *default
+  #database: db/production.sqlite3
   <<: *default
-  database: db/production.sqlite3
+  database: plantilla_production
+  username: plantilla
+  password: <%= ENV['PLANTILLA_DATABASE_PASSWORD'] %>
